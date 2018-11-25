@@ -1,0 +1,15 @@
+kumuluzee:
+  name: rso-airline-search
+  version: 1.0.0
+  env:
+    name: dev
+  server:
+    base-url: http://localhost:8082
+    http:
+      port: 8082
+  datasources:
+  - jndi-name: jdbc/fri_airline
+    connection-url: ${KUMULUZEE_DATASOURCES0_CONNECTIONURL}
+    username: postgres
+    password: pass
+    max-pool-size: 20
