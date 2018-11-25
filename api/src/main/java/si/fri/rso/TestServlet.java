@@ -1,3 +1,5 @@
+package si.fri.rso;
+
 import javax.persistence.Persistence;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
