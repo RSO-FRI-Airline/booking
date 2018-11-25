@@ -1,5 +1,5 @@
 kumuluzee:
-  name: rso-airline-search
+  name: rso-airline-booking
   version: 1.0.0
   env:
     name: dev
@@ -13,3 +13,8 @@ kumuluzee:
     username: postgres
     password: pass
     max-pool-size: 20
+
+app-properties:
+  external-services:
+    enabled: true
+  healthy: true
