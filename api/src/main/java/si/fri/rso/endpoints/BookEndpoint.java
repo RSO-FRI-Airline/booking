@@ -44,7 +44,7 @@ public class BookEndpoint {
             Booking booking = bookingBean.create(bookQuery.customer, 1, price, 99);
             return Response.ok(booking).build();
         }
-        else return Response.notModified("Customer does not exists!").build();
+        else return Response.status(403, "Customer does not exists!").build();
     }
 
 }
