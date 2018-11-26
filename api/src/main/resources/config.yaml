@@ -13,6 +13,13 @@ kumuluzee:
     username: postgres
     password: pass
     max-pool-size: 20
+  health:
+    checks:
+      data-source-health-check:
+        jndi-name: jdbc/fri_airline
+  config:
+    etcd:
+      hosts: http://127.0.0.1:2379
   discovery:
     etcd:
       hosts: http://127.0.0.1:2379
