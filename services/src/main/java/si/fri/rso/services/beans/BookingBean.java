@@ -31,14 +31,14 @@ public class BookingBean extends EntityBean<Booking> {
 
     private Client httpClient;
 
-//    @Inject
-//    @DiscoverService("rso-orders")
+    @Inject
+    @DiscoverService(value = "rso-airline-search")
     private Optional<String> baseUrl;
 
     @PostConstruct
     private void init() {
         httpClient = ClientBuilder.newClient();
-        baseUrl = Optional.of("http://localhost:8081"); // TODO: Discover Service
+//        baseUrl = Optional.of("http://localhost:8081"); // TODO: Discover Service
     }
 
     public Booking create(Customer customer, int status, Price price, int userEvaluation){
@@ -64,6 +64,10 @@ public class BookingBean extends EntityBean<Booking> {
                 log.severe(e.getMessage());
                 throw new InternalServerErrorException(e);
             }
+        }
+
+        if (!baseUrl.isPresent()) {
+            log.warning("Base url is not available!");
         }
 
         return null;

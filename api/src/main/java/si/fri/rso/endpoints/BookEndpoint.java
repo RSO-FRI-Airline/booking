@@ -40,9 +40,12 @@ public class BookEndpoint {
     public Response book(BookQuery bookQuery){
         if (customerBean.exists(bookQuery.customer)) {
             Price price = bookingBean.getPrice(bookQuery.token);
-            log.info(price.toString());
-            Booking booking = bookingBean.create(bookQuery.customer, 1, price, 99);
-            return Response.ok(booking).build();
+            if (price != null) {
+                log.info(price.toString());
+                Booking booking = bookingBean.create(bookQuery.customer, 1, price, 99);
+                return Response.ok(booking).build();
+            }
+            return Response.status(400, "There was problem").build();
         }
         else return Response.status(403, "Customer does not exists!").build();
     }
