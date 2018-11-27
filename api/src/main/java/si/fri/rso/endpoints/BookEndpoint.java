@@ -50,16 +50,20 @@ public class BookEndpoint {
         CustomerQuery customerQuery = bookQuery.customer;
         if (customerQuery != null) {
             Customer customer = customerBean.getCustomer(customerQuery.firstName, customerQuery.lastName, customerQuery.mail);
-            if (customer != null) {
-                Price price = bookingBean.getPrice(bookQuery.token);
-                if (price != null) {
-                    log.info(price.toString());
-                    Booking booking = bookingBean.create(customer, 1, price, 99);
-                    return Response.ok(booking).build();
-                }
-                return Response.status(400, "There was problem").build();
+            if(customer == null){
+                customer = new Customer();
+                customer.setFirstName(customerQuery.firstName);
+                customer.setLastName(customerQuery.lastName);
+                customer.setMail(customerQuery.mail);
+                customerBean.add(customer);
             }
-            else return Response.status(403, "Customer does not exists!").build();
+            Price price = bookingBean.getPrice(bookQuery.token);
+            if (price != null) {
+                log.info(price.toString());
+                Booking booking = bookingBean.create(customer, 1, price, 99);
+                return Response.ok(booking).build();
+            }
+            return Response.status(400, "There was problem").build();
         }
         else return Response.status(400, "Please provide a customer").build();
     }
