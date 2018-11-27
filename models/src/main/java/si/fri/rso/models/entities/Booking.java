@@ -17,7 +17,9 @@ public class Booking extends BaseEntity{
 
     @Transient
     private Price price;
+
     private int userEvaluation;
+    private int price_id;
 
     public Customer getCustomer() {
         return customer;
@@ -41,6 +43,7 @@ public class Booking extends BaseEntity{
 
     public void setPrice(Price price) {
         this.price = price;
+        setPrice_id(price.getId());
     }
 
     public int getUserEvaluation() {
@@ -49,5 +52,13 @@ public class Booking extends BaseEntity{
 
     public void setUserEvaluation(int userEvaluation) {
         this.userEvaluation = userEvaluation;
+    }
+
+    public int getPrice_id() {
+        return this.price_id;
+    }
+
+    public void setPrice_id(int price_id) {
+        this.price_id = price_id;
     }
 }
