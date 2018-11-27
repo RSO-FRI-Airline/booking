@@ -13,6 +13,7 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 import java.util.logging.Logger;
 
 
@@ -30,13 +31,19 @@ public class BookEndpoint {
     @Inject
     private CustomerBean customerBean;
 
-//    @Path("/{token}")
-//    @GET
-//    public Response info(@PathParam(value = "token") int token) {
-//        Price price = bookingBean.getPrice(token);
-//        log.info(price.toString());
-//        return Response.ok(price).build();
-//    }
+    @Path("customers")
+    @GET
+    public Response getCustomers() {
+        List allCustomers = customerBean.get();
+        return Response.ok(allCustomers).build();
+    }
+
+    @Path("bookings")
+    @GET
+    public Response getBookings() {
+        List allBookings = bookingBean.get();
+        return Response.ok(allBookings).build();
+    }
 
     @POST
     public Response book(BookQuery bookQuery){
