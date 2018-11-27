@@ -1,8 +1,8 @@
 package si.fri.rso.endpoints;
 
+import si.fri.rso.dtos.BookQuery;
 import si.fri.rso.models.dtos.Price;
 import si.fri.rso.models.entities.Booking;
-import si.fri.rso.models.entities.Customer;
 import si.fri.rso.services.beans.BookingBean;
 import si.fri.rso.services.beans.CustomerBean;
 

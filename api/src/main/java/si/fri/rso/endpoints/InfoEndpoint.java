@@ -8,10 +8,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonObject;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.logging.Logger;
@@ -34,6 +31,15 @@ public class InfoEndpoint {
         String instanceId =
                 "{\"instanceId\" : \"" + EeRuntime.getInstance().getInstanceId() + "\"}";
         return Response.ok(instanceId).build();
+    }
+
+
+    @GET
+    @Path("healthy/{value}")
+    public Response setHealth(@PathParam(value = "value") boolean healthy) {
+        appProperties.setHealthy(healthy);
+        log.info("Setting health to " + healthy);
+        return Response.ok().build();
     }
 
     @GET

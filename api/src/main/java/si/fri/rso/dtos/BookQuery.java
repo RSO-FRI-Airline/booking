@@ -1,4 +1,4 @@
-package si.fri.rso.endpoints;
+package si.fri.rso.dtos;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import si.fri.rso.models.entities.Customer;
