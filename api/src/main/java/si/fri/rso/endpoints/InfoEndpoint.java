@@ -2,6 +2,7 @@ package si.fri.rso.endpoints;
 
 import com.kumuluz.ee.common.runtime.EeRuntime;
 import com.kumuluz.ee.logs.cdi.Log;
+import si.fri.rso.dtos.DemoMicroservicesQuery;
 import si.fri.rso.services.configuration.AppProperties;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -25,6 +26,8 @@ public class InfoEndpoint {
     @Inject
     private AppProperties appProperties;
 
+    private DemoMicroservicesQuery currentMicroservices;
+
     @GET
     @Path("instanceid")
     public Response getInstanceId() {
@@ -42,14 +45,26 @@ public class InfoEndpoint {
         return Response.ok().build();
     }
 
+    @POST
+    @Path("set/endpoints")
+    public Response setMicroserviceEndpoints(DemoMicroservicesQuery query) {
+        this.currentMicroservices = query;
+        return Response.ok().build();
+    }
+
     @GET
     public Response info() {
+        if (currentMicroservices == null) {
+            currentMicroservices = new DemoMicroservicesQuery();
+            currentMicroservices.microservices = new String[] {"TODO"};
+        }
+
         JsonObject json = Json.createObjectBuilder()
                 .add("clani", Json.createArrayBuilder().add("ag9497").add("jk5456"))
 
                 .add("opis_projekta", "Nas projekt implementira aplikacijo za iskanje in naročanje letalskih kart.")
 
-                .add("mikrostoritve", Json.createArrayBuilder().add("TODO"))
+                .add("mikrostoritve", currentMicroservices.getJsonArrayBuilder())
 
                 .add("github", Json.createArrayBuilder().add("https://github.com/RSO-FRI-Airline/search")
                                                                 .add("https://github.com/RSO-FRI-Airline/booking")

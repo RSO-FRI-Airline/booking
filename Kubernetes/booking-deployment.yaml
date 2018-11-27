@@ -13,7 +13,7 @@ spec:
         app: booking
     spec:
       containers:
-      - image: rsoairlines/fri-airlines-booking:0.0.3
+      - image: rsoairlines/fri-airlines-booking:0.0.4
         name: booking
         env:
         - name: KUMULUZEE_DISCOVERY_CLUSTER
@@ -27,10 +27,10 @@ spec:
         - name: KUMULUZEE_DATASOURCES0_CONNECTIONURL
           value: jdbc:postgresql://sl-eu-gb-p00.dblayer.com:16059/compose
         - name: KUMULUZEE_DATASOURCES0_USERNAME
-            valueFrom:
-              secretKeyRef:
-                name: pg-pass
-                key: db-username
+          valueFrom:
+            secretKeyRef:
+              name: pg-pass
+              key: db-username
         - name: KUMULUZEE_DATASOURCES0_PASSWORD
           valueFrom:
             secretKeyRef:

@@ -1,8 +1,10 @@
 package si.fri.rso.endpoints;
 
 import si.fri.rso.dtos.BookQuery;
+import si.fri.rso.dtos.CustomerQuery;
 import si.fri.rso.models.dtos.Price;
 import si.fri.rso.models.entities.Booking;
+import si.fri.rso.models.entities.Customer;
 import si.fri.rso.services.beans.BookingBean;
 import si.fri.rso.services.beans.CustomerBean;
 
@@ -38,16 +40,21 @@ public class BookEndpoint {
 
     @POST
     public Response book(BookQuery bookQuery){
-        if (customerBean.exists(bookQuery.customer)) {
-            Price price = bookingBean.getPrice(bookQuery.token);
-            if (price != null) {
-                log.info(price.toString());
-                Booking booking = bookingBean.create(bookQuery.customer, 1, price, 99);
-                return Response.ok(booking).build();
+        CustomerQuery customerQuery = bookQuery.customer;
+        if (customerQuery != null) {
+            Customer customer = customerBean.getCustomer(customerQuery.firstName, customerQuery.lastName, customerQuery.mail);
+            if (customer != null) {
+                Price price = bookingBean.getPrice(bookQuery.token);
+                if (price != null) {
+                    log.info(price.toString());
+                    Booking booking = bookingBean.create(customer, 1, price, 99);
+                    return Response.ok(booking).build();
+                }
+                return Response.status(400, "There was problem").build();
             }
-            return Response.status(400, "There was problem").build();
+            else return Response.status(403, "Customer does not exists!").build();
         }
-        else return Response.status(403, "Customer does not exists!").build();
+        else return Response.status(400, "Please provide a customer").build();
     }
 
 }
