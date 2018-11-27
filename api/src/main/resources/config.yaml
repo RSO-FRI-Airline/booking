@@ -10,8 +10,10 @@ kumuluzee:
   datasources:
   - jndi-name: jdbc/fri_airline
     connection-url: ${KUMULUZEE_DATASOURCES0_CONNECTIONURL}
-    username: postgres
-    password: pass
+      username: admin
+      password: ${KUMULUZEE_DATASOURCES0_PASSWORD}
+      #    username: postgres
+      #    password: pass
     max-pool-size: 20
   health:
     checks:
